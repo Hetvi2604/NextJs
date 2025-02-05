@@ -113,7 +113,7 @@ export async function updateInvoice(
       `;
   } catch (error) {
     // We'll log the error to the console for now
-    // console.error(error);
+    console.error(error);
     return { message: 'Database Error: Failed to Update Invoice.' };
   }
  
