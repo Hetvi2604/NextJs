@@ -28,6 +28,7 @@ export function UpdateInvoice({ id }: { id: string }) {
   );
 }
 
+/* eslint-disable @typescript-eslint/no-unused-vars */
 export function DeleteInvoice({ id }: { id: string }) {
   // const deleteInvoiceWithId = deleteInvoice.bind(null, id);
   // const deleteInvoiceWithId = async (formData: FormData) => {
@@ -36,6 +37,8 @@ export function DeleteInvoice({ id }: { id: string }) {
   // async function deleteInvoiceWithId() {
   //   await deleteInvoice(id);
   // }
+    // Server action must be imported, cannot be declared inside a Client Component
+  
   return (
     <form action={deleteInvoiceWithId}>
     {/* <form action={async (formData) => { await deleteInvoiceWithId(); }}> */}

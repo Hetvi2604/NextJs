@@ -144,20 +144,39 @@ export async function updateInvoice(
 //   }
 // }
 
-export async function deleteInvoiceWithId(formData: FormData): Promise<void> {
-  const id = formData.get("id") as string;
+// export async function deleteInvoiceWithId(formData: FormData): Promise<void> {
+//   const id = formData.get("id") as string;
 
-  if (!id) {
-    console.error("Invoice ID is required");
-    return;
-  }
+//   if (!id) {
+//     console.error("Invoice ID is required");
+//     return;
+//   }
 
-  try {
-    await sql`DELETE FROM invoices WHERE id = ${id}`;
-    revalidatePath("/dashboard/invoices");
-  } catch (error) {
-    console.error("Error deleting invoice:", error);
-  }
+// Define the function to delete an invoice (adjust based on your DB logic)
+export async function deleteInvoice(id: string) {
+  if (!id) return;
+
+  // Example: Replace this with your actual database deletion logic
+  console.log(`Deleting invoice with ID: ${id}`);
+
+  // Example: If using Prisma
+  // await prisma.invoice.delete({ where: { id } });
+
+  // Example: If using raw SQL
+  // await sql`DELETE FROM invoices WHERE id = ${id}`;
+}
+export async function deleteInvoiceWithId(formData: FormData) {
+  const id = formData.get("invoiceId") as string; // Extract the ID from form input
+  if (!id) return;
+
+  await deleteInvoice(id);
+
+  // try {
+  //   await sql`DELETE FROM invoices WHERE id = ${id}`;
+  //   revalidatePath("/dashboard/invoices");
+  // } catch (error) {
+  //   console.error("Error deleting invoice:", error);
+  // }
 }
 
 export async function authenticate(

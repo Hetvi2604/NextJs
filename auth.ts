@@ -6,13 +6,25 @@ import { z } from 'zod';
 import type { User } from '@/app/lib/definitions';
 import bcrypt from 'bcrypt';
  
+// async function getUser(email: string): Promise<User | undefined> {
+//   try {
+//     const user = await sql<User>`SELECT * FROM users WHERE email=${email}`;
+//     return user.rows[0];
+//   } catch (error) {
+//     console.error('Failed to fetch user:', error);
+//     throw new Error('Failed to fetch user.');
+//   }
+// }
+
 async function getUser(email: string): Promise<User | undefined> {
   try {
+    console.log("Connecting to database...");
     const user = await sql<User>`SELECT * FROM users WHERE email=${email}`;
+    console.log("User fetched successfully:", user);
     return user.rows[0];
   } catch (error) {
-    console.error('Failed to fetch user:', error);
-    throw new Error('Failed to fetch user.');
+    console.error("Failed to fetch user:", error);
+    return undefined;
   }
 }
  
