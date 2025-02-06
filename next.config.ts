@@ -1,12 +1,9 @@
 import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
-  /* config options here */
-};
-
-module.exports = {
-  eslint: {
-    ignoreDuringBuilds: true,
+  experimental: {},
+  env: {
+    DATABASE_URL: process.env.DATABASE_URL || "",
   },
 };
 

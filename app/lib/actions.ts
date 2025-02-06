@@ -129,21 +129,36 @@ export async function updateInvoice(
 //   revalidatePath('/dashboard/invoices');
 // }
 
-export async function deleteInvoice(id: string) {
+// export async function deleteInvoice(id: string) {
+//   try {
+//     // Attempt to delete the invoice
+//     await sql`DELETE FROM invoices WHERE id = ${id}`;
+
+//     // Revalidate the cache for the invoices page
+//     revalidatePath('/dashboard/invoices');
+
+//     return { success: true, message: 'Invoice deleted successfully' };
+//   } catch (error) {
+//     console.error('Error deleting invoice:', error);
+//     return { success: false, message: 'Failed to delete invoice' };
+//   }
+// }
+
+export async function deleteInvoiceWithId(formData: FormData): Promise<void> {
+  const id = formData.get("id") as string;
+
+  if (!id) {
+    console.error("Invoice ID is required");
+    return;
+  }
+
   try {
-    // Attempt to delete the invoice
     await sql`DELETE FROM invoices WHERE id = ${id}`;
-
-    // Revalidate the cache for the invoices page
-    revalidatePath('/dashboard/invoices');
-
-    return { success: true, message: 'Invoice deleted successfully' };
+    revalidatePath("/dashboard/invoices");
   } catch (error) {
-    console.error('Error deleting invoice:', error);
-    return { success: false, message: 'Failed to delete invoice' };
+    console.error("Error deleting invoice:", error);
   }
 }
-
 
 export async function authenticate(
   prevState: string | undefined,

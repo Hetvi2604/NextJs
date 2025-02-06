@@ -142,6 +142,8 @@ export async function fetchInvoicesPages(query: string) {
 
 export async function fetchInvoiceById(id: string) {
   try {
+    console.log("Fetching invoice for ID:", id);
+
     const data = await sql<InvoiceForm>`
       SELECT
         invoices.id,
@@ -152,12 +154,16 @@ export async function fetchInvoiceById(id: string) {
       WHERE invoices.id = ${id};
     `;
 
+    console.log("Raw SQL query result:", data.rows);
+
     const invoice = data.rows.map((invoice) => ({
       ...invoice,
       // Convert amount from cents to dollars
       amount: invoice.amount / 100,
     }));
-    console.log(invoice); // Invoice is an empty array []
+    // console.log(invoice); // Invoice is an empty array []
+
+    console.log("Formatted Invoice Data:", invoice);
     return invoice[0];
   } catch (error) {
     console.error('Database Error:', error);
